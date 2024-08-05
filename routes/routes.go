@@ -1,8 +1,10 @@
 package routes
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"personalidades-api/controllers/personalities"
 	"personalidades-api/middleware"
 
@@ -20,5 +22,12 @@ func HandleRequests() {
 	api.HandleFunc("/personalities/{id}", personalities.Delete).Methods("DELETE")
 	api.HandleFunc("/personalities/{id}", personalities.Update).Methods("PUT")
 
-	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
+	portEnv := os.Getenv("PORT")
+
+	port := fmt.Sprintf(
+		":%s",
+		portEnv,
+	)
+
+	log.Fatal(http.ListenAndServe(port, handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
