@@ -6,6 +6,7 @@ import (
 	"personalidades-api/controllers/personalities"
 	"personalidades-api/middleware"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -19,5 +20,5 @@ func HandleRequests() {
 	api.HandleFunc("/personalities/{id}", personalities.Delete).Methods("DELETE")
 	api.HandleFunc("/personalities/{id}", personalities.Update).Methods("PUT")
 
-	log.Fatal(http.ListenAndServe(":3000", r))
+	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
