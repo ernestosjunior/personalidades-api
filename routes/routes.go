@@ -20,5 +20,5 @@ func HandleRequests() {
 	api.HandleFunc("/personalities/{id}", personalities.Delete).Methods("DELETE")
 	api.HandleFunc("/personalities/{id}", personalities.Update).Methods("PUT")
 
-	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
